@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Management{% endblock %}
+
+{% block page_content %}
+<div>
+    <h1>Convert Bond List</h1>
+</div>
+<div>
+    {{ wtf.quick_form(form) }}
+
+</div>
+<div class="panel-body">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                {% for i in labels %}
+                <td>{{ i }}</td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in content %}
+            <tr>
+                {% for j in i %}
+                <td>{{ j }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        <div>共{{ total }}个</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Web management</title>
-</head>
-<body>
-<a href="{{ url_for('fund.fund_info') }}">Fund realtime price</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Management{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <a href="{{ url_for('fund.fund_info') }}">fund info</a>
+    <br>
+    <a href="{{ url_for('cb.jsl') }}">jsl cb</a>
+    <br>
+    <a href="{{ url_for('jingzhi.info') }}">jing zhi</a>
+    <br>
+
+</div>
+{% endblock %}

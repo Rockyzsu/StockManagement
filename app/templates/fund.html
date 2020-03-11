@@ -1,12 +1,11 @@
-<!--{% extends "bootstrap/base.html" %}-->
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %} This is new title {% endblock %}
-{% block body %}
-<div>
-    <h1>Input code</h1>
-</div>
+{% block title %}Management{% endblock %}
+
+{% block page_content %}
+
 <div>
     {{ wtf.quick_form(form) }}
 </div>
-<div>Name is {{ percent }}</div>
+<div>{{ name }} : {{ price }} percent : {{ percent }}%</div>
 {% endblock %}
