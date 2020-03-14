@@ -16,7 +16,8 @@ post_data = {
     'btype': 'C',
     'listed': 'Y',
     'rp': '50',
-    'is_search': 'N'}
+    'is_search': 'Y'}
+
 def convert_percent(x):
     try:
         ret = float(x) * 100

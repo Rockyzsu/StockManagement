@@ -5,9 +5,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField,DecimalField,FloatField,BooleanField
 from wtforms.validators import DataRequired,Length,Optional
-class QueryFund(FlaskForm):
 
-    search = SubmitField('search')
+class QueryJZ(FlaskForm):
 
-    jz = StringField('Today asset',validators=[Optional()])
-    update = SubmitField('update')
+    submit1 = SubmitField('show jz')
+
+class UpdateJZ(FlaskForm):
+
+    money = FloatField('money',validators=[DataRequired()])
+    change = FloatField('change',validators=[Optional()])
+    submit2 = SubmitField('update')

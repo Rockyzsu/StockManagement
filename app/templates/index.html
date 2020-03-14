@@ -4,12 +4,15 @@
 
 {% block page_content %}
 <div class="page-header">
-    <a href="{{ url_for('fund.fund_info') }}">fund info</a>
+    <a href="{{ url_for('fund.fund_info') }}">fund cb info</a>
     <br>
-    <a href="{{ url_for('cb.jsl') }}">jsl cb</a>
+    <a href="{{ url_for('cb.lists') }}">cb list</a>
     <br>
-    <a href="{{ url_for('jingzhi.info') }}">jing zhi</a>
+    <a href="{{ url_for('jingzhi.gj_info') }}">gj jing zhi</a>
     <br>
-
+    <a href="{{ url_for('jingzhi.hb_info') }}">hb jing zhi</a>
+    <br>
+    <a href="{{ url_for('realtime.monitor') }}">real time</a>
+    <br>
 </div>
 {% endblock %}

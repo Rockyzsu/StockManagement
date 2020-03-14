@@ -7,15 +7,15 @@ from flask import render_template,request
 from .function import jsl_fetch,zz_filter,zg_filter
 from .forms import QueryFund
 
-@cb.route('jsl',methods=['GET','POST'])
-def jsl():
+@cb.route('list',methods=['GET','POST'])
+def lists():
     labels = []
     content = [[]]
     form = QueryFund()
 
     if request.method=='GET':
 
-        return render_template('jsl.html',labels=labels,content=content,form=form)
+        return render_template('cb_list.html',labels=labels,content=content,form=form)
 
     else:
         if form.validate_on_submit():
@@ -24,16 +24,12 @@ def jsl():
             zg_num = form.zg_num.data
             zz_num = form.zz_num.data
 
-            # print(zg_num,zz_num)
-            # print(zg_condition,zz_condition,zg_num,zz_num)
-            # False False None None 全为空的时候
-            # num = form.num.data
 
             df = jsl_fetch()
 
             if df is None:
 
-                return render_template('jsl.html', labels=labels, content=content,form=form)
+                return render_template('cb_list.html', labels=labels, content=content,form=form)
 
             if zg_num is not None:
                 op ='gt' if zg_condition else 'lt'
@@ -43,9 +39,10 @@ def jsl():
                 op ='gt' if zz_condition else 'lt'
                 df=zz_filter(df,zz_num,op)
 
+            df=df.sort_values(by='increase_rt',ascending=False)
 
             df=df[['bond_id', 'bond_nm', 'price',  'increase_rt','sincrease_rt','premium_rt']]
             labels = df.columns.values.tolist()
             content=df.values.tolist()
             total=len(content)
-            return render_template('jsl.html',labels=labels,content=content,form=form,total=total)
+            return render_template('cb_list.html',labels=labels,content=content,form=form,total=total)

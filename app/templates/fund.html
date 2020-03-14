@@ -3,9 +3,20 @@
 {% block title %}Management{% endblock %}
 
 {% block page_content %}
-
+<h1>Fund search</h1>
 <div>
-    {{ wtf.quick_form(form) }}
+    FUND INFO
+    {{ wtf.quick_form(form_fund) }}
+</div>
+<div>{{ name }} : {{ price }} percent : {{ percent }}%</div>
+
+======================================================
+<br>
+<br>
+<br>
+<div>
+    CB INFO
+{{ wtf.quick_form(form_cb) }}
 </div>
 <div>{{ name }} : {{ price }} percent : {{ percent }}%</div>
 {% endblock %}

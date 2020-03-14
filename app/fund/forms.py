@@ -1,7 +1,11 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField
-from wtforms.validators import DataRequired,Length
+from wtforms.validators import DataRequired,Length,Optional
 class QueryFund(FlaskForm):
+    code = StringField('input code',validators=[DataRequired(),Length(6,10)])
+    search = SubmitField('search')
 
-    code = StringField('Code',validators=[DataRequired(),Length(6,8)])
-    submit = SubmitField('Search')
+
+class QueryCB(FlaskForm):
+    cb_code = StringField('input code',validators=[DataRequired(),Length(6,10)])
+    search_bt = SubmitField('search')
