@@ -5,13 +5,13 @@
 from . import cb
 from flask import render_template,request
 from .function import jsl_fetch,zz_filter,zg_filter
-from .forms import QueryFund
+from .forms import CBForm
 
 @cb.route('list',methods=['GET','POST'])
-def lists():
+def get_cb_list():
     labels = []
     content = [[]]
-    form = QueryFund()
+    form = CBForm()
 
     if request.method=='GET':
 

@@ -5,7 +5,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField,DecimalField,FloatField,BooleanField
 from wtforms.validators import DataRequired,Length,Optional
-class QueryFund(FlaskForm):
+class CBForm(FlaskForm):
 
     # zz_condition = BooleanField('zz勾选为大于',validators=[Optional()])
     # zz_num = FloatField('zz percent',validators=[Optional()])
@@ -22,3 +22,4 @@ class QueryFund(FlaskForm):
 
 
     submit = SubmitField('update')
+

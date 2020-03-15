@@ -1,7 +1,7 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>Flask-SocketIO Test</title>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Management{% endblock %}
+{% block body %}
     <script src="/static/jquery-1.12.4.min.js"></script>
     <script src="/static/socket.io.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -128,5 +128,5 @@
     </form>
     <h2>Receive:</h2>
     <div id="log"></div>
-</body>
-</html>
+
+{% endblock %}

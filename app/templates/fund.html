@@ -3,20 +3,39 @@
 {% block title %}Management{% endblock %}
 
 {% block page_content %}
-<h1>Fund search</h1>
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+
+<h1>search engine</h1>
 <div>
-    FUND INFO
     {{ wtf.quick_form(form_fund) }}
 </div>
+
 <div>{{ name }} : {{ price }} percent : {{ percent }}%</div>
 
+<br>
+<br>
+<br>
 ======================================================
 <br>
 <br>
 <br>
-<div>
-    CB INFO
+{{ wtf.quick_form(form_update_cb_code) }}
+<br>
+<realtime>
 {{ wtf.quick_form(form_cb) }}
-</div>
-<div>{{ name }} : {{ price }} percent : {{ percent }}%</div>
+<br>
+{% for item in bond_lists %}
+<ul>
+    <h4>{{ item.bond_name }}</h4>
+<p>realtime : {{ item.cb_price }}  percent : {{ item.cb_percent }}%</p>
+<p>ASK1 : {{ item.ask1 }}  : BUY1 : {{ item.bid1 }}  diff  :  {{ item.diff }}% </p>
+</ul>
+<br>
+<br>
+{% endfor %}
 {% endblock %}
