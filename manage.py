@@ -13,9 +13,17 @@ app = create_app('default')
 socketio = SocketIO(app, async_mode=async_mode)
 socketio.init_app(app, cors_allowed_origins='*')
 
-@socketio.on('monitor',namespace='/test')
-def test_message(message):
+@socketio.on('start_monitor',namespace='/test')
+def test_message():
     print('receive')
+    # print(message)
+    socketio.emit('start_response', {'data':'nihao'},namespace="/test")
+
+@socketio.on('stop_monitor',namespace='/test')
+def test_message():
+    print('receive')
+    # print(message)
+    socketio.emit('stop_response',{'data':'nihao'} ,namespace="/test")
 
 manager = Manager(app)
 
