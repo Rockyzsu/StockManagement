@@ -5,7 +5,7 @@
 import datetime
 import tushare as ts
 from . import jingzhi
-from flask import request,render_template
+from flask import request,render_template,flash
 from .forms import QueryJZ,UpdateJZ
 from .function import cursor,con
 GJ_BASE=1000
@@ -79,7 +79,8 @@ def gj_info():
             else:
                 print('update successfully')
                 # con.close()
-            # 使用flash提醒
+                # 使用flash提醒
+                flash('update jz in db!')
             return render_template('jingzhi.html',stock_type=stock_type,query_form =query_form,update_form=update_form)
 
 @jingzhi.route('hb_info',methods=['GET','POST'])
@@ -94,7 +95,6 @@ def hb_info():
     else:
 
         if query_form.submit1.data and query_form.validate_on_submit():
-            print('query_form')
             sql='select * from tb_jingzhi_hb_flask'
             cursor.execute(sql)
             ret=cursor.fetchall()
@@ -149,5 +149,6 @@ def hb_info():
             else:
                 print('update successfully')
                 # con.close()
-            # 使用flash提醒
+                flash('update jz in db!')
+
             return render_template('jingzhi.html',stock_type=stock_type,query_form =query_form,update_form=update_form)

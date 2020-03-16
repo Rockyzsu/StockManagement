@@ -110,7 +110,7 @@ def fund_info():
     elif form_update_cb_code.update_bt.data and form_update_cb_code.validate_on_submit():
             # 更新代码
             result = update_cb_code_fun()
-            print('updating coding')
+            # print('updating coding')
             with open('codes.cfg','w') as f:
                 json.dump(result,f,ensure_ascii=False)
             flash('Update code succussfully!')

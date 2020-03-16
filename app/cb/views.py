@@ -3,7 +3,7 @@
 # @Time : 2020/3/11 11:11
 # @File : views.py
 from . import cb
-from flask import render_template,request
+from flask import render_template,request,flash
 from .function import jsl_fetch,zz_filter,zg_filter
 from .forms import CBForm
 
@@ -45,4 +45,5 @@ def get_cb_list():
             labels = df.columns.values.tolist()
             content=df.values.tolist()
             total=len(content)
+            flash('update suceessfully!')
             return render_template('cb_list.html',labels=labels,content=content,form=form,total=total)
