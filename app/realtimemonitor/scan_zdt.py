@@ -1,3 +1,6 @@
+import requests
+session = requests.Session()
+
 def get_zg_code():
     '''
     获取正股代码
@@ -51,21 +54,13 @@ def get_zg_code():
     result = {}
     for body_dict in ret.get('rows',[]):
         # print(item)
-
         item=body_dict.get('cell',{})
-        bond_nm = item.get('bond_nm','').strip()
-        bond_id = item.get('bond_id','').strip()
-        zg_code = item.get('pre_bond_id').strip()[2:]
+        zg_code = item.get('stock_id').strip()[2:]
+        zg_name = item.get('stock_nm').strip()
+        result[zg_code]=zg_name
 
-        b = []
-        for i in range(len(a)):
-            b.append(str(a[i][0]).lower())
-        c = ''.join(b)
-        result.setdefault(c,[])
-        result[c].append({bond_id:bond_nm})
+    return result
 
-    return resultcb_code_fun():
-    
 
 
 

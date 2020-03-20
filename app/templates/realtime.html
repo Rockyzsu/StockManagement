@@ -2,76 +2,148 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block head %}
 {{ super() }}
-    <script src="/static/jquery-1.12.4.min.js"></script>
-    <script src="/static/socket.io.js"></script>
-        <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            // Use a "/test" namespace.
-            // An application can open a connection on multiple namespaces, and
-            // Socket.IO will multiplex all those connections on a single
-            // physical channel. If you don't care about multiple channels, you
-            // can set the namespace to an empty string.
-            namespace = '/test';
+<script src="/static/jquery-1.12.4.min.js"></script>
+<script src="/static/socket.io.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        // Use a "/test" namespace.
+        // An application can open a connection on multiple namespaces, and
+        // Socket.IO will multiplex all those connections on a single
+        // physical channel. If you don't care about multiple channels, you
+        // can set the namespace to an empty string.
+        namespace = '/test';
 
-            // Connect to the Socket.IO server.
-            // The connection URL has the following format, relative to the current page:
-            //     http[s]://<domain>:<port>[/<namespace>]
-            var socket = io(namespace);
+        // Connect to the Socket.IO server.
+        // The connection URL has the following format, relative to the current page:
+        //     http[s]://<domain>:<port>[/<namespace>]
+        var socket = io(namespace);
 
-            // Event handler for new connections.
-            // The callback function is invoked when a connection with the
-            // server is established.
-            socket.on('connect', function() {
-                socket.emit('monitor', {data: 'I\'m connected!'});
-            });
-
-            // Event handler for server sent data.
-            // The callback function is invoked whenever the server emits data
-            // to the client. The data is then displayed in the "Received"
-            // section of the page.
-            socket.on('my_response', function(msg, cb) {
-                console.log('response');
-                console.log(msg);
-                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
-
-                if (cb)
-                    cb();
-            });
-
-            socket.on('start_response',function(msg,cb)
-                {
-                    console.log(msg);
-                });
-
-            socket.on('stop_response',function(msg,cb)
-                {
-                    console.log(msg);
-                });
-
-            $('form#emit_start').submit(function(event) {
-                socket.emit('start_monitor');
-                return false;
-            });
-            $('form#emit_stop').submit(function(event) {
-                socket.emit('stop_monitor');
-                return false;
-            });
-
+        // Event handler for new connections.
+        // The callback function is invoked when a connection with the
+        // server is established.
+        socket.on('connect', function () {
+            socket.emit('monitor', {data: 'I\'m connected!'});
         });
-    </script>
+
+        // Event handler for server sent data.
+        // The callback function is invoked whenever the server emits data
+        // to the client. The data is then displayed in the "Received"
+        // section of the page.
+        socket.on('my_response', function (msg, cb) {
+            console.log('response');
+            console.log(msg);
+            $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+
+            if (cb)
+                cb();
+        });
+
+        socket.on('start_response', function (msg, cb) {
+            var data = msg['data'];
+            var tb_num = msg['num'];
+            var tb_name='tb'+tb_num;
+            var tb = document.getElementById(tb_name);
+
+            if (tb != null)
+                tb.parentNode.removeChild(tb);
+
+            var tb = document.getElementById(tb_name);
+
+            for (var i = 0, len = data.length; i < len; i++) {
+                var row = tb.insertRow(tb.rows.length);
+
+                var c0 = row.insertCell(0);
+                c0.innerHTML = i;
+
+                var c1 = row.insertCell(1);
+                c1.innerHTML = data[i].code;
+
+                var c2 = row.insertCell(2);
+                c2.innerHTML = data[i].price;
+
+                var c3 = row.insertCell(3);
+                c3.innerHTML = data[i].percent;
+
+                var c4 = row.insertCell(4);
+                c4.innerHTML = data[i].name;
+
+                // console.log(data[j]);
+            }
+        });
+
+        socket.on('stop_response', function (msg, cb) {
+            console.log(msg);
+        });
+
+        $('form#emit_start').submit(function (event) {
+            socket.emit('start_monitor');
+            return false;
+        });
+        $('form#emit_stop').submit(function (event) {
+            socket.emit('stop_monitor');
+            return false;
+        });
+
+    });
+</script>
 {% endblock %}
 {% block title %}Management{% endblock %}
 {% block page_content %}
 
-    <h1>Realtime monitor</h1>
+<h1>Realtime monitor</h1>
 
-    <form id="emit_start" method="POST" action='#'>
-        <input type="submit" value="Start-monitor">
-    </form>
+<form id="emit_start" method="POST" action='#'>
+    <input type="submit" value="Start-monitor">
+</form>
 
-    <form id="emit_stop" method="POST" action='#'>
-        <input type="submit" value="Stop-monitor">
-    </form>
+<br>
+<form id="emit_stop" method="POST" action='#'>
+    <input type="submit" value="Stop-monitor">
+</form>
+<br>
+<br>
+<div>
+    <table border="1" id="tb1">
+        <tr><td>no</td>
+            <td>cdoe</td>
+            <td>price</td>
+            <td>percent</td>
+            <td>name</td>
+        </tr>
+    </table>
 
+        <table border="1" id="tb2">
+        <tr><td>no</td>
+            <td>cdoe</td>
+            <td>price</td>
+            <td>percent</td>
+            <td>name</td>
+        </tr>
+    </table>
 
+        <table border="1" id="tb3">
+        <tr><td>no</td>
+            <td>cdoe</td>
+            <td>price</td>
+            <td>percent</td>
+            <td>name</td>
+        </tr>
+    </table>
+            <table border="1" id="tb4">
+        <tr><td>no</td>
+            <td>cdoe</td>
+            <td>price</td>
+            <td>percent</td>
+            <td>name</td>
+        </tr>
+    </table>
+            <table border="1" id="tb5">
+        <tr><td>no</td>
+            <td>cdoe</td>
+            <td>price</td>
+            <td>percent</td>
+            <td>name</td>
+        </tr>
+    </table>
+</div>
 {% endblock %}

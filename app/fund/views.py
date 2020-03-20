@@ -92,7 +92,10 @@ def fund_info():
             cb_percent = round((cb_price - last_close) / last_close * 100, 1)
             ask1 = row['ask1']
             bid1 = row['bid1']
-            diff = round((ask1 - bid1) / bid1 * 100, 1)
+            try:
+                diff = round((ask1 - bid1) / bid1 * 100, 1)
+            except:
+                diff = 0
             d={}
             d['cb_price']=cb_price
             d['cb_percent']=cb_percent
