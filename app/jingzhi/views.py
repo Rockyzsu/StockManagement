@@ -5,9 +5,11 @@
 import datetime
 import tushare as ts
 from . import jingzhi
+import pymysql
 from flask import request,render_template,flash
 from .forms import QueryJZ,UpdateJZ
-from .function import cursor,con
+# from .function import cursor,con
+from config import DB_PASSWORD,DB_HOST,DB_PORT,DB_USER
 GJ_BASE=1000
 
 LABELS=['Date','Assert','Change','NetValue','NetValuePercent','Share','Profit','HS300']
@@ -23,6 +25,9 @@ def gj_info():
         return render_template('jingzhi.html',query_form =query_form,update_form=update_form,stock_type=stock_type)
 
     else:
+        con = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, password=DB_PASSWORD, db='db_stock',
+                              cursorclass=pymysql.cursors.DictCursor)
+        cursor = con.cursor()
 
         if query_form.submit1.data and query_form.validate_on_submit():
             print('query_form')
@@ -93,7 +98,9 @@ def hb_info():
         return render_template('jingzhi.html',query_form =query_form,update_form=update_form,stock_type=stock_type)
 
     else:
-
+        con = pymysql.connect(host=DB_HOST, port=DB_PORT, user=DB_USER, password=DB_PASSWORD, db='db_stock',
+                              cursorclass=pymysql.cursors.DictCursor)
+        cursor = con.cursor()
         if query_form.submit1.data and query_form.validate_on_submit():
             sql='select * from tb_jingzhi_hb_flask'
             cursor.execute(sql)
